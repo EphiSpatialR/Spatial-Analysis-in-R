@@ -1,0 +1,579 @@
+---
+title: |
+       <span style="color:white">Spatial data analaysis Training</span>
+author: 
+  - <span style='color:white'>Yebelay Berehan</span>
+
+institute: |
+       <span style="color:white"></span><br><br><br><br>
+       <span style="color:red">`r Sys.Date()`</span>
+
+title-slide-attributes:
+  data-background-image: sp.jpeg
+  data-background-size: stretch
+  data-background-opacity: "2.5"
+  data-background-color: "#001E4E"
+format: 
+  revealjs:
+    slide-number: true
+    #logo: logo-title-slide.png
+    #footer: "[?](https://github.com/Yebelay)&nbsp;&nbsp;&nbsp;"
+    theme: custom.scss
+    code-link: true
+    code-fold: show
+    code-tools: true
+    highlight-style: github
+  #  preview-links: auto
+    chalkboard: 
+      boardmarker-width: 3
+    multiplex: true
+from: markdown+emoji
+execute:
+  echo: true
+  collapse: true
+---
+
+
+##  {background-image="cover.jpeg"}
+
+### Outlines
+
+-   [Source, Format, and Types of Spatial Data]{style="color: blue"}
+    -   What is GIS? What is spatial data and why should we use it?
+    -   Types of spatial data
+    -   Formats of Spatial Data
+    -   Sources of Spatial Data/ Exploring spatial data
+-   [Basic R Packages for Spatial Data Management and Modelling]{style="color: blue"}
+    -   Data Management Packages
+    -   Data Visualization and Mapping Packages
+    -   Modelling Packages
+-   [Overview of Spatial and Non-Spatial Data Exploration and Modelling]{style="color: blue"}
+    -   Background: Spatial epidemiology, epidemiological data
+    -   Data exploration/summarization techniques for spatial and non-spatial datasets
+    -   Spatial versus non-spatial modelling approach
+    -   Changing research questions into statistical thinking
+
+------------------------------------------------------------------------
+
+### Outlines
+
+-   [Spatial Exploratory Data Analysis]{style="color: blue"}
+    -   Visualizing spatial data
+    -   Disease mapping
+    -   Spatial autocorrelation for areal data
+    -   Variogram for geostatistical data
+-   [Spatial Data Modelling]{style="color: blue"}
+    -   Modelling framework
+    -   Areal data modelling
+    -   Geostatistical data modelling
+    -   Spatial prediction (if time allows)
+    -   Bayesian Disease mapping (if time allows)
+
+# [**Source, Format, and Types of Spatial Data**]{style="color: blue"}
+
+## What is GIS? What is spatial data and why should we use it?
+
+-   **GIS (Geographical Information Systems):**
+
+    -   A system designed to capture, store, manipulate, analyze, manage, and visualize spatial or geographic data.
+
+    -   Integrates data from multiple sources to provide insights into spatial patterns and relationships.
+
+-   [Spatial data, also known as geospatial data]{style="color:red;"}, refers to information that identifies the geographic location and characteristics of natural or constructed features and boundaries on the Earth.
+
+-   This data is often represented in terms of [Cartesian coordinates (x,y)]{style="color:red;"} for two-dimensional maps, but may also include [altitude (z)]{style="color:red;"} for a three-dimensional representation.
+
+-   Spatial data is essential for analyzing relationships within a geographical context.
+
+    -   It is widely used in health helps [map disease spread]{style="color:#1E90FF"}, [identify hotspots]{style="color:red"}, [allocate resources]{style="color:blue"}, and [monitor environmental impacts on health]{style="color:#1E90FF"}, and [urban planning]{style="color:#32CD32"}.
+
+------------------------------------------------------------------------
+
+-   **Spatial Data can be collected** in either
+
+    -   [Satellite Imagery:]{style="color:#1E90FF"} Captured by remote sensing satellites, these images can provide data on land cover, vegetation, weather patterns, and more.
+    -   [GPS Surveys:]{style="color:#1E90FF"} Use Global Positioning System technology to collect precise location data for mapping and navigation purposes.
+    -   [Traditional Surveying Methods:]{style="color:#1E90FF"} Involve measuring angles, distances, and elevations to map out areas accurately, often using tools like theodolites and total stations.
+
+### Spatial Data Formats
+
+-   Let us see a basic way to represent the spatial data.
+
+-   But there is a variety of data formats to represent the data to suit different applications.
+
+-   In most cases, spatial data formats are an extension of existing data formats.
+
+## Spatial Data Formats Categorized by Type
+
+::: {.callout-tip icon="false"}
+## Spatial Data Formats Categorized by Type
+
++--------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| [Type]{style="color:red"}                  | [Spatial Data Formats]{style="color:red"}                                                                  |
++============================================+============================================================================================================+
+| [Text Files]{style="color:#1E90FF"}        | -   [CSV]{style="color:#8A2BE2"}: Enhanced with spatial attributes (e.g., coordinates).                    |
+|                                            | -   [GeoJSON]{style="color:#8A2BE2"}: Representing points, lines, polygons, and metadata.                  |
+|                                            | -   [GML]{style="color:#8A2BE2"}: for representing geographic features and metadata.                       |
+|                                            | -   [KML]{style="color:#8A2BE2"}: used for Google Earth and online maps.                                   |
++--------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| [Binary/Compressed]{style="color:#1E90FF"} | -   [Shapefile]{style="color:#8A2BE2"}: A multi-file format storing vector data (geometry and attributes). |
+|                                            | -   [GeoPDF]{style="color:#8A2BE2"}: Geospatially enabled PDF with embedded layers and coordinate data.    |
+|                                            | -   [Geopackage]{style="color:#8A2BE2"}: supporting both vector and raster data.                           |
+|                                            | -   [PBF]{style="color:#8A2BE2"}: Binary format for OpenStreetMap data, efficient for large datasets.      |
++--------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| [Images]{style="color:#1E90FF"}            | -   [GeoTIFF]{style="color:#8A2BE2"}: metadata for raster data.                                            |
+|                                            | -   [JPEG2000]{style="color:#8A2BE2"}: Compressed image format for multi-resolution datasets.              |
+|                                            | -   [ECW]{style="color:#8A2BE2"}: Compressed raster format optimized for large imagery datasets.           |
++--------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| [Databases]{style="color:#1E90FF"}         | -   [Spatialite]{style="color:#8A2BE2"}: supporting spatial data and functions.                            |
+|                                            | -   [PostGIS]{style="color:#8A2BE2"}: enabling advanced spatial queries and storage.                       |
+|                                            | -   [Oracle Spatial]{style="color:#8A2BE2"}: supporting 3D and network data.                               |
+|                                            | -   [ArcGIS Geodatabase]{style="color:#8A2BE2"}: spatial database format for managing geographic datasets. |
++--------------------------------------------+------------------------------------------------------------------------------------------------------------+
+:::
+
+## Spatial Data Types
+
+-   Spatial Data can be broadly categorized into 2 types - [Vector]{style="color:blue;"} and [Raster]{style="color:blue;"}.
+    -   *But what is the difference between raster and vector data?*
+    -   \*When should we use raster and when should we use vector features?\_
+
+### Vector Data: Overview
+
+-   [Vectors]{style="color:#006D6B"} are representations of spatial data using [points]{style="color:#FF6347"}, [lines]{style="color:#4682B4"}, and [polygons]{style="color:#32CD32"}.
+    -   They represent real-world features at varying levels of detail, depending on the [map scale]{style="color:red"}.
+-   Unlike [rasters]{style="color:#FFD700"}, vectors are not made up of grids or pixels. Instead, they consist of:
+    -   [Vertices]{style="color:#8A2BE2"}: Specific coordinate points.
+    -   [Paths]{style="color:#FF1493"}: Lines connecting the vertices.
+-   [Points]{style="color:#FF6347"}: are individual **XY coordinates**, typically [latitude]{style="color:#20B2AA"} and [longitude]{style="color:#20B2AA"}, with a spatial reference frame.
+    -   They are used to represent features too small to be displayed as [polygons]{style="color:#32CD32"}.
+        -   Example: [Cities]{style="color:#FF6347"} shown as points on a global map.
+    -   They are simple, precise locations, and they are efficient for small-scale maps.
+
+------------------------------------------------------------------------
+
+-   [Lines]{style="color:#4682B4"} connect multiple vertices using paths, forming [linear features]{style="color:#8A2BE2"} (e.g., *Rivers*, *roads*, and *pipelines*).
+
+-   [Polygons]{style="color:#32CD32"} are formed by connecting vertices in a closed path (e.g., Building footprints, agricultural fields).
+
+    -   Used to represent [areas]{style="color:#32CD32"} with measurable attributes (e.g., square footage, acreage).
+    -   First and last coordinates of a [polygon]{style="color:#32CD32"} are the same to close the shape.
+
+-   [Vector data are high accuracy and aesthetically pleasing]{style="color:cyan"} graphics.
+
+    -   Not dependent on [grid size]{style="color:#32CD32"} and they are ideal for [network analysis]{style="color:#8A2BE2"}.
+
+-   But processing can be intensive due to complex [topology rules]{style="color:#1E90FF"}.
+
+------------------------------------------------------------------------
+
+## Raster Data: Overview
+
+-   [**Raster data**]{style="color:#FFC300"} is a grid of [pixels]{style="color:#DC143C"} (or grid cells) where each cell represents a value. Values can represent various attributes like:
+    -   [Colors]{style="color:#FF6347"} (e.g., satellite images), [Elevation]{style="color:#32CD32"} (e.g., digital elevation models) and [Continuous phenomena]{style="color:#1E90FF"} (e.g., temperature, rainfall).
+-   [**Raster data**]{style="color:#FFC300"} can be either [discrete]{style="color:#8A2BE2"} or [continuous]{style="color:#32CD32"}.
+    -   [Discrete Rasters]{style="color:blue"}: Represent distinct classes or categories (eg.: [Land cover types]{style="color:#1E90FF"} (e.g., urban = 1, forest = 2).
+    -   Consist of [integers]{style="color:#8A2BE2"} to define clear boundaries.
+    -   [Continuous Rasters]{style="color:blue"}: Represent data that changes gradually (eg.: [Elevation]{style="color:#32CD32"}, [temperature]{style="color:#20B2AA"}).
+        -   Derived from a fixed reference point (e.g., [sea level]{style="color:#DC143C"}).
+-   [**Raster data**]{style="color:#FFC300"} are easy to understand and perform [map algebra]{style="color:#8A2BE2"} operations.
+    -   They are inefficient for [linear]{style="color:#4682B4"} or [network data]{style="color:#FF1493"}, large file sizes with increased [resolution]{style="color:#FF6347"}.
+
+------------------------------------------------------------------------
+
+::: {.callout-tip icon="false"}
+## Summary of Vector vs Raster datas
+
++----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Type**                                                       | **Sub type**                                                                                                                                                                                          |
+|                                                                |                                                                                                                                                                                                       |
+| [Vector Data]{style="color:blue;"}                             | -   [Points:]{style="color:red;"} Represents features with a single coordinate pair [(x, y)]{style="color:purple;"}. Ex.: Locations of [ATMs]{style="color:green;"}, [tree]{style="color:green;"}     |
+|                                                                | -   [Lines:]{style="color:red;"} Represents linear features as ordered sequences of points. Ex.: [Roads]{style="color:green;"}, [rivers]{style="color:green;"}, [utility lines]{style="color:green;"} |
+|                                                                | -   [Polygons (areas):]{style="color:red;"} Represents areas enclosed by closed loops of lines. Ex.: [Buildings]{style="color:green;"}, [lakes]{style="color:green;"}, [zones]{style="color:green;"}  |
++----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                |                                                                                                                                                                                                       |
++----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Raster Data]{style="color:blue;"}                             | -   **Grids:** Represents continuous data across a surface.                                                                                                                                           |
+|                                                                |     -   [Satellite images]{style="color:green;"}, [digital elevation models (DEMs)]{style="color:green;"}                                                                                             |
+|                                                                | -   **Pixels:** Smallest units in a raster dataset, each with a specific value.                                                                                                                       |
+|                                                                |     -   Values representing color, temperature,                                                                                                                                                       |
++----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Additional information [(Attribute data):]{style="color:red;"} | -   Describing the characteristics of spatial features.                                                                                                                                               |
+|                                                                | -   For example in *Vector data*:                                                                                                                                                                     |
+|                                                                |     -   **hospital:** have hospiatl name, id, location, patient count, department                                                                                                                     |
+|                                                                |     -   **Roads:**have road type, traffic volume, maintenance status.                                                                                                                                 |
+|                                                                | -   *In Raster Data:* Each pixel can have multiple attributes, such as vegetation type or pollution levels.                                                                                           |
++----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+
+## What are the most common Vector data formats?
+
+::: {.callout-tip icon="false"}
+## Commonly used Vector data Formats:
+
++------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **File Type**                                        | **Description and Extension**                                                                                                                                                                                                        |
++------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Shapefile]{style="color: red"}                      | -   The most common geospatial file and the three mandatory files to make up a shapefile are.                                                                                                                                        |
+|                                                      |     -   [SHP]{style="color: blue"} is the feature geometry.                                                                                                                                                                          |
+|                                                      |     -   [SHX]{style="color: blue"} is the shape index position.                                                                                                                                                                      |
+|                                                      |     -   [DBF]{style="color: blue"} is the attribute data.                                                                                                                                                                            |
+|                                                      | -   Other optional files include these files, but they are not completely necessary.                                                                                                                                                 |
+|                                                      |     -   [PRJ]{style="color: green"}(projection system), [XML]{style="color: green"} (associated metadata), [SBN]{style="color: green"}(spatial index for optimizing queries), [SBX]{style="color: green"} (optimizes loading times). |
++------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [GeoJSON]{style="color: red"}                        | -   Geographic java sript Object Notation (.GeoJSON)                                                                                                                                                                                 |
+|                                                      | -   encodes geographic features (points, lines, polygons) in JSON format.                                                                                                                                                            |
+|                                                      | -   widely used format for online web mapping.                                                                                                                                                                                       |
++------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [GML]{style="color: red"}(Geography Markup Language) | -   allows for the use of geographic coordinates extension of XML.                                                                                                                                                                   |
+|                                                      | -   stores geographic entities (features) in the form of text.                                                                                                                                                                       |
+|                                                      | -   Each feature includes properties, geometry, and a spatial reference system.                                                                                                                                                      |
++------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+
+## What are the most common Raster data formats?
+
+::: {.callout-tip icon="false"}
+## Commonly used Raster data Formats:
+
++----------------------------------------------------------------+------------------------------------------------------------------+
+| **File Type**                                                  | **Description**                                                  |
++----------------------------------------------------------------+------------------------------------------------------------------+
+| [GeoTIFF]{style="color: red"} (`.tif`, `.tiff`)                | -   A widely used raster format that includes spatial metadata,  |
+|                                                                |     -   allowing georeferencing of images.                       |
++----------------------------------------------------------------+------------------------------------------------------------------+
+| [JPEG2000]{style="color: red"} **(**`.jp2`, `.j2k`**)**        | -   An advanced image compression format                         |
+|                                                                |     -   supports geospatial metadata for GIS applications.       |
++----------------------------------------------------------------+------------------------------------------------------------------+
+| [Erdas Imagine]{style="color: red"} **(**`.img`**)**           | -   Used for remote sensing data in Erdas Imagine software.      |
++----------------------------------------------------------------+------------------------------------------------------------------+
+| [ECW (Enhanced Compressed Wavelet)]{style="color: red"} `.ecw` | -   A highly compressed raster format                            |
+|                                                                |     -   optimized for large satellite imagery and aerial photos. |
++----------------------------------------------------------------+------------------------------------------------------------------+
+:::
+
+## What are the components of spatial data
+
+-   [Geometry:]{style="color:#ae01c7;"} Refers to the coordinates that define the shape of an object.
+
+    -   [Coordinates:]{style="color:blue;"} These can be in different coordinate systems, such as geographic ([latitude]{style="color:purple;"}) and [longitude]{style="color:purple;"}) or projected systems.
+    -   [Types of Geometries:]{style="color:blue;"} Common types include [points]{style="color:blue;"}, [lines]{style="color:blue;"}, and [polygons]{style="color:blue;"}.
+    -   [Dimension:]{style="color:blue;"} Geometry can also have dimensional attributes like [2D]{style="color:purple;"} (x, y), [3D]{style="color:purple;"} (x, y, z), or even [4D]{style="color:purple;"} (x, y, z, time).
+
+-   [Topology:]{style="color:#ae01c7;"} Defines spatial relationships like adjacency, connectivity, and containment.
+
+    **Rules**:
+
+    -   No overlaps.
+    -   Lines meet at nodes.
+    -   Closed polygon boundaries.
+
+[Attribute Data:]{style="color:#ae01c7;"} provide detailed information about spatial features.
+
+## Coordinate Reference Systems (CRS):
+
+-   Geospatial data relies on coordinate reference systems to define locations on the Earth's surface.
+
+-   A coordinate reference system contains both a datum and a projection.
+
+-   Common CRS include WGS84 (GPS coordinates) and UTM (Universal Transverse Mercator).
+
+-   Frequently encountered datums:
+
+    -   *WGS84* – World Geodetic System (created in) 1984. The origin is the center of the earth.
+    -   *NAD27* & *NAD83* – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.
+    -   *ED50* – European Datum 1950
+
+### **CRS Formats**
+
+-   Numerous formats are used to document a `CRS`. Three common formats include:
+
+    -   **proj.4**
+    -   **EPSG**
+    -   Well-known Text (**WKT**) formats.
+
+# [Basic R Packages for Spatial Data Management and Modelling]{style="color: blue"}
+
+## Rpackages for spatial data
+
+R offers several packages for geospatial data analysis
+
+-   **`sf`:** Modern and efficient handling of spatial data as simple features, fully integrates with `dplyr`.
+-   **`sp`:** Older standard for spatial data in R, widely supported but less user-friendly compared to `sf`.
+-   **`rgdal`:** It offers functions to read and write geospatial data in various formats.
+-   **`raster`:** Designed for raster data handling, but supports some vector operations.
+-   **`terra`:** A modern replacement for `raster`, faster and more memory-efficient, with support for both data types.
+-   **`tmap`:** Simplifies creating static and interactive thematic maps, works with `sf` and `sp` objects.
+-   **`leaflet`:** Interactive maps for web, fully supports spatial data visualization with popups and layers.
+-   **`mapview`** for interactive web mapping
+-   **`spatstat`:** for point pattern analysis
+
+## `sf()` package
+
+-   **sf package** (simple features = points, lines, polygons) is the new.
+
+-   Therefore, we focus on the sf package for the following reasons:
+
+    -   sf ensures fast reading and writing of data
+    -   sf provides enhanced plotting performance
+    -   sf objects can be treated as data frames in most operations
+    -   Geographic data is stored in the special geometry column.
+    -   sf functions can be combined using `%>%` operator and works well with the tidyverse collection of R packages.
+    -   sf function names are relatively consistent and intuitive (all begin with `st_`)
+
+-   The **sf** package is a modern alternative to the traditional **sp**, **rgeos**, and **rgdal** packages.
+
+## **`st_*()` functions**
+
+Common functions to manipulate `sf` objects include the following:
+
+-   [`st_read()`](https://r-spatial.github.io/sf/reference/st_read.html) reads a `sf` object,
+
+-   [`st_write()`](https://r-spatial.github.io/sf/reference/st_write.html) writes a `sf` object,
+
+-   [`st_crs()`](https://r-spatial.github.io/sf/reference/st_crs.html) gets or sets a new coordinate reference system (CRS),
+
+-   [`st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html) transforms data to a new CRS,
+
+-   [`st_intersection()`](https://r-spatial.github.io/sf/reference/geos_binary_ops.html) intersects `sf` objects,
+
+-   [`st_union()`](https://r-spatial.github.io/sf/reference/geos_combine.html) combines several `sf` objects into one,
+
+-   [`st_simplify()`](https://r-spatial.github.io/sf/reference/geos_unary.html) simplifies a `sf` object,
+
+-   [`st_coordinates()`](https://r-spatial.github.io/sf/reference/st_coordinates.html) retrieves coordinates of a `sf` object,
+
+-   [`st_as_sf()`](https://r-spatial.github.io/sf/reference/st_as_sf.html) converts a foreign object to a `sf` object.
+
+## read and understand Shapefiles with `sf`
+
+-   We can read a shapefile or a `sf` object with the [`st_read()`](https://r-spatial.github.io/sf/reference/st_read.html) function of **sf**.
+
+-   For example, here we read the `ET_Admin3_2023.shp` at [Ethiopia](https://fews.net/ethiopia-fews-net-admin-boundaries-2023) which contains the region, zone and districts of Ethiopia.
+
+
+```{r}
+library(sf)
+ethA3_shape <- st_read("Ethadmin3_2023/ET_Admin3_2023.shp", quiet = TRUE)
+```
+
+
+-   select and rename variables using `dplyr` package.
+
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+ethR_shape <- ethA3_shape |> 
+  select(FNID, ADMIN0, ADMIN1, ADMIN2, ADMIN3, Shape_Leng, 
+         Shape_Area, FNID_A1, geometry) |> 
+  rename(Country = ADMIN0, Region = ADMIN1, Zone = ADMIN2, Woreda = ADMIN3)
+```
+
+
+------------------------------------------------------------------------
+
+### Examine
+
+-   Below are a few common functions that use to examine our data. They are not from the sf package but they are very useful.
+
+
+```{r}
+# View structure and summary
+head(ethR_shape, 3)
+```
+
+
+-   The `sf` object `ethR_shape` is a `data.frame` containing a collection with
+
+-   [1141 simple features (rows)]{style="color:#ae01c7;"} and [9 attributes (columns)]{style="color:blue;"}[plus ]{style="color: red"}*a list-column with the geometry of each feature*.
+
+---
+
+-   A `sf` object contains the following objects of class `sf`, `sfc` and `sfg`:
+    -   `sf` (simple feature): *each row* of the `data.frame` [is a single simple feature consisting of attributes and geometry]{style="color:#ae01c7;"}.
+
+    -   `sfc` (simple feature geometry list-column): the `geometry` *column* of the `data.frame` [is a list-column of class `sfc` with the geometry of each simple feature]{style="color:blue;"}.
+
+    -   `sfg` (simple feature geometry): *each of the rows* of the `sfc` list-column corresponds to the simple feature geometry (`sfg`) of a single simple feature.
+
+-   The **sf** package stores geometric features in a data frame.
+
+-   Geographic data is stored in the special geometry column.
+
+
+```{r, eval=FALSE}
+str(ethR_shape) # data structure
+```
+
+
+------------------------------------------------------------------------
+
+### Inspect key columns and summary:
+
+
+```{r}
+# Display column names 
+colnames(ethR_shape)
+```
+
+
+### Subsetting Spatial Data Frames
+
+-   Focus on specific regions, zones, or woredas:
+
+
+```{r}
+# Filter for a specific region (e.g., "Tigray")
+tigray_data <- ethR_shape %>%
+  filter(Region == "Tigray")
+#plot(tigray_data)
+```
+
+
+------------------------------------------------------------------------
+
+
+```{r}
+# Filter for a specific woreda (e.g., "Tahtay Adiyabo")
+tahtay_adiyabo <- ethR_shape %>%
+  filter(Woreda == "Tahtay Adiyabo")
+plot(tahtay_adiyabo)
+```
+
+
+------------------------------------------------------------------------
+
+-   If we are interested in mapping something in the 4 regions of country: Tigray, Afar, Amhara, Oromia. The `Region` column in the ethR_shape.shp contains the names of each region. We will use that as our subsetting column. Let’s call it region_4.
+
+
+```{r, fig.width=10, fig.align='center'}
+# Subset dataset to include only Four-regions.
+fourR <- c("Tigray", "Afar", "Amhara", "Oromia") 
+region_4 <- ethR_shape %>% 
+  subset(Region %in% fourR) 
+
+plot(region_4$geometry, col = as.factor(region_4$Region)) 
+```
+
+
+------------------------------------------------------------------------
+
+### Spatial Transformations
+
+#### a. **Transform CRS**
+
+-   Convert to a different coordinate reference system if needed:
+
+
+```{r}
+st_crs(ethR_shape)            # Check CRS
+```
+
+
+---
+
+
+```{r}
+ethR_shape <- st_transform(ethR_shape, crs = 32637)  # UTM Zone 37N
+ethR_shape
+```
+
+
+#### b. **Create Buffers**
+
+-   Generate buffers around each feature
+-   buffers are areas created around spatial features at a specified distance.
+    -   eg. Measuring access to hospitals or clinics within a certain radius.
+
+
+```{r}
+buffered_shp <- st_buffer(ethR_shape, dist = 1000)  # Buffer by 1km
+#plot(buffered_shp)
+```
+
+
+------------------------------------------------------------------------
+
+### Simplify Geometries
+
+Simplify polygons to reduce complexity:
+
+
+```{r}
+simplified_shp <- st_simplify(ethR_shape, dTolerance = 0.01)
+plot(simplified_shp)
+```
+
+
+------------------------------------------------------------------------
+
+### Visualize the Data
+
+-   If the changing of our data worked, we should be able to plot our data.. Let’s plot country.
+
+
+```{r}
+plot(ethR_shape)
+```
+
+
+------------------------------------------------------------------------
+
+**So what happened?**
+
+-   Well, if you only use the plot() function, that particular shapefile will plot not only the shapefile geometry but also the geometry for every column in the dataset (except for the geometry column    
+   - which contains the spatial data 
+   - the other columns are our tabular descriptive data).
+
+Above are 8 maps. How many columns were there? Check code below:
+
+
+```{r}
+ncol(ethR_shape)-1 
+```
+
+- checking the number of columns, subtracting 1 as the geometry column doesn't plot
+
+------------------------------------------------------------------------
+
+- **st_geometry()** makes our life easier. 
+- The function goes inside the plot() function and the dataset we want to plot goes inside. Like this:
+
+### st_geometry()
+
+
+```{r}
+plot(st_geometry(ethR_shape), col = 'lightblue', border = 'darkblue')
+```
+
+
+------------------------------------------------------------------------
+
+Or use `ggplot2`
+
+
+```{r, fig.align='center', fig.width=10}
+
+library(ggplot2)
+
+ggplot(ethR_shape) +
+  geom_sf(aes(fill = Region)) +
+  theme_minimal() +
+  labs(title = "Regions of Ethiopia", fill = "Region")
+```
+
+
+------------------------------------------------------------------------
+
+-   We can delete some of the polygons by taking a subset of the rows of `map`.
+
+
+```{r, eval=FALSE}
+map <- ethR_shape %>%
+  st_filter(ethR_shape[ethR_shape$Region %in% c("Tigray", "Oromia"), ])
+
+ggplot(map) +
+  geom_sf(aes(fill = "gray")) +
+  theme_minimal() 
+```
+
