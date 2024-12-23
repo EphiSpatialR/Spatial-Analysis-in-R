@@ -1,15 +1,15 @@
 ---
 title: |
-       <span style="color:white">Spatial data analaysis Training</span>
+       <span style="color:#006D6B; font-size: 60px;">Spatial data analaysis Training</span>
 author: 
-  - <span style='color:white'>Yebelay Berehan</span>
+  - <span style='color:blue'>Yebelay Berehan</span>
 
 institute: |
-       <span style="color:white"></span><br><br><br><br>
+       <span style="color:#006D6B"></span><br><br><br><br>
        <span style="color:red">`r Sys.Date()`</span>
 
 title-slide-attributes:
-  data-background-image: sp.jpeg
+  data-background-image: sp.jpg
   data-background-size: stretch
   data-background-opacity: "2.5"
   data-background-color: "#001E4E"
