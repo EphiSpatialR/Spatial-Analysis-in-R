@@ -10,7 +10,8 @@
 <link href="Spatial_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.549">
-<title>Spatial data analaysis Training</title>
+<meta name="author" content="Yebelay Berehan  ">
+<title>Spatial Data Analysis Training  </title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -392,12 +393,21 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#001E4E" data-background-image="sp.jpg" data-background-opacity="2.5" data-background-size="stretch" class="quarto-title-block center"><h1 class="title"></h1>
-<p><span style="color:#006D6B; font-size: 48px;">Spatial data analaysis Training</span></p>
+<p><span style="color:#006D6B; font-size: 60px;">Spatial Data Analysis Training</span> <br><br></p>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<span style="color:blue">Yebelay Berehan</span> <br><br>
+</div>
+        <p class="quarto-title-affiliation">
+            </p>
+<p><span style="color:#006D6B; font-size: 30px;">National Data Management Center for Health at EPHI and AAU Department of Statistics</span> <br><br><br><span style="color:red">December 25-29, 2024</span></p>
+          
+    </div>
 </div>
 
-</section><section id="section" class="slide level2" data-background-image="cover.jpeg"><h2></h2>
+</section><section id="section" class="slide level2" data-background-image="cover.#jpeg"><h2></h2>
 <h3 id="outlines">Outlines</h3>
 <ul>
 <li>
@@ -865,18 +875,18 @@
 <p><span style="color:#ae01c7;">Attribute Data:</span> provide detailed information about spatial features.</p>
 </section><section id="coordinate-reference-systems-crs" class="slide level2"><h2>Coordinate Reference Systems (CRS):</h2>
 <ul>
-<li><p>Geospatial data relies on coordinate reference systems to define locations on the Earth’s surface.</p></li>
-<li><p>A coordinate reference system contains both a datum and a projection.</p></li>
-<li><p>Common CRS include WGS84 (GPS coordinates) and UTM (Universal Transverse Mercator).</p></li>
+<li><p>Geospatial data relies on CRS to define locations on the Earth’s surface.</p></li>
+<li><p>A CRS <span style="color:#8A2BE2">contains both a datum and a projection</span>.</p></li>
+<li><p>Common CRS include <strong>WGS84 (GPS coordinates)</strong> and <strong>UTM (Universal Transverse Mercator)</strong>.</p></li>
 <li>
 <p>Frequently encountered datums:</p>
 <ul>
 <li>
-<em>WGS84</em> – World Geodetic System (created in) 1984. The origin is the center of the earth.</li>
+<span style="color:blue">WGS84</span> – World Geodetic System (created in) 1984. The origin is the center of the earth.</li>
 <li>
-<em>NAD27</em> &amp; <em>NAD83</em> – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.</li>
+<span style="color:blue">NAD27 &amp; NAD83</span> – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.</li>
 <li>
-<em>ED50</em> – European Datum 1950</li>
+<span style="color:#8A2BE2">ED50</span> – European Datum 1950</li>
 </ul>
 </li>
 </ul>
@@ -885,9 +895,8 @@
 <li>
 <p>Numerous formats are used to document a <code>CRS</code>. Three common formats include:</p>
 <ul>
-<li><strong>proj.4</strong></li>
-<li><strong>EPSG</strong></li>
-<li>Well-known Text (<strong>WKT</strong>) formats.</li>
+<li>
+<code>proj.4</code>; <code>EPSG</code>; Well-known Text (<code>WKT</code>).</li>
 </ul>
 </li>
 </ul></section></section><section><section id="basic-r-packages-for-spatial-data-management-and-modelling" class="title-slide slide level1 center"><h1><span style="color: blue">Basic R Packages for Spatial Data Management and Modelling</span></h1>
@@ -987,8 +996,12 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 <ul>
-<li><p>The <code>sf</code> object <code>ethR_shape</code> is a <code>data.frame</code> containing a collection with</p></li>
-<li><p><span style="color:#ae01c7;">1141 simple features (rows)</span> and <span style="color:blue;">9 attributes (columns)</span><span style="color: red">plus</span><em>a list-column with the geometry of each feature</em>.</p></li>
+<li>The <code>sf</code> object <code>ethR_shape</code> is a <code>data.frame</code> containing a collection with
+<ul>
+<li>
+<span style="color:#ae01c7;">1141 simple features (rows)</span> and <span style="color:blue;">9 attributes (columns)</span> <span style="color: red">plus</span> <em>a list-column with the geometry of each feature</em>.</li>
+</ul>
+</li>
 </ul></section><section class="slide level2"><ul>
 <li>
 <p>A <code>sf</code> object contains the following objects of class <code>sf</code>, <code>sfc</code> and <code>sfg</code>:</p>

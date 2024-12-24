@@ -1,13 +1,15 @@
 ---
 title: |
-       <span style="color:#006D6B; font-size: 60px;">Spatial data analaysis Training</span>
+       <span style="color:#006D6B; font-size: 60px;">Spatial Data Analysis Training</span>
+       <br><br>
 author: 
-  - <span style='color:blue'>Yebelay Berehan</span>
-
+    - <span style='color:blue'>Yebelay Berehan</span>
+      <br><br>
+       
 institute: |
-       <span style="color:#006D6B"></span><br><br><br><br>
-       <span style="color:red">`r Sys.Date()`</span>
-
+       <span style="color:#006D6B; font-size: 30px;">National Data Management Center for Health at EPHI and AAU Department of Statistics</span>
+       <br><br><br>
+       <span style="color:red">December 25-29, 2024</span>
 title-slide-attributes:
   data-background-image: sp.jpg
   data-background-size: stretch
@@ -16,14 +18,11 @@ title-slide-attributes:
 format: 
   revealjs:
     slide-number: true
-    #logo: logo-title-slide.png
-    #footer: "[?](https://github.com/Yebelay)&nbsp;&nbsp;&nbsp;"
     theme: custom.scss
     code-link: true
     code-fold: show
     code-tools: true
     highlight-style: github
-  #  preview-links: auto
     chalkboard: 
       boardmarker-width: 3
     multiplex: true
@@ -33,7 +32,8 @@ execute:
   collapse: true
 ---
 
-##  {background-image="cover.jpeg"}
+
+##  {background-image="cover.#jpeg"}
 
 ### Outlines
 
@@ -271,25 +271,23 @@ execute:
 
 ## Coordinate Reference Systems (CRS):
 
--   Geospatial data relies on coordinate reference systems to define locations on the Earth's surface.
+-   Geospatial data relies on CRS to define locations on the Earth's surface.
 
--   A coordinate reference system contains both a datum and a projection.
+-   A CRS [contains both a datum and a projection]{style="color:#8A2BE2"}.
 
--   Common CRS include WGS84 (GPS coordinates) and UTM (Universal Transverse Mercator).
+-   Common CRS include **WGS84 (GPS coordinates)** and **UTM (Universal Transverse Mercator)**.
 
 -   Frequently encountered datums:
 
-    -   *WGS84* – World Geodetic System (created in) 1984. The origin is the center of the earth.
-    -   *NAD27* & *NAD83* – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.
-    -   *ED50* – European Datum 1950
+    -   [WGS84]{style="color:blue"} – World Geodetic System (created in) 1984. The origin is the center of the earth.
+    -   [NAD27 & NAD83]{style="color:blue"} – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.
+    -   [ED50]{style="color:#8A2BE2"} – European Datum 1950
 
 ### **CRS Formats**
 
 -   Numerous formats are used to document a `CRS`. Three common formats include:
 
-    -   **proj.4**
-    -   **EPSG**
-    -   Well-known Text (**WKT**) formats.
+    -   `proj.4`;   `EPSG`;   Well-known Text (`WKT`).
 
 # [Basic R Packages for Spatial Data Management and Modelling]{style="color: blue"}
 
@@ -377,8 +375,7 @@ head(ethR_shape, 3)
 ```
 
 -   The `sf` object `ethR_shape` is a `data.frame` containing a collection with
-
--   [1141 simple features (rows)]{style="color:#ae01c7;"} and [9 attributes (columns)]{style="color:blue;"}[plus ]{style="color: red"}*a list-column with the geometry of each feature*.
+     -   [1141 simple features (rows)]{style="color:#ae01c7;"} and [9 attributes (columns)]{style="color:blue;"} [plus]{style="color: red"} *a list-column with the geometry of each feature*.
 
 ---
 
