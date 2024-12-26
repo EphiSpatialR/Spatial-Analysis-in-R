@@ -1,0 +1,5 @@
+"0","library(dplyr)"
+"0","ethR_shape <- ethA3_shape |> "
+"0","  select(FNID, ADMIN0, ADMIN1, ADMIN2, ADMIN3, Shape_Leng, "
+"0","         Shape_Area, FNID_A1, geometry) |> "
+"0","  rename(Country = ADMIN0, Region = ADMIN1, Zone = ADMIN2, Woreda = ADMIN3)"

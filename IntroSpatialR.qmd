@@ -1,0 +1,138 @@
+---
+title: |
+       <span style="color:#006D6B; font-size: 60px;">Spatial Data Analysis Training</span>
+       <br><br>
+author: 
+    - <span style='color:blue'>Yebelay Berehan</span>
+      <br><br>
+       
+institute: |
+       <span style="color:#006D6B; font-size: 30px;">National Data Management Center for Health at EPHI and AAU Department of Statistics</span>
+       <br><br><br>
+       <span style="color:red">December 25-29, 2024</span>
+title-slide-attributes:
+  data-background-image: sp.jpg
+  data-background-size: stretch
+  data-background-opacity: "2.5"
+  data-background-color: "#001E4E"
+format: 
+  revealjs:
+    slide-number: true
+    theme: custom.scss
+    code-link: true
+    code-fold: show
+    code-tools: true
+    highlight-style: github
+    chalkboard: 
+      boardmarker-width: 3
+    multiplex: true
+from: markdown+emoji
+execute:
+  echo: true
+  collapse: true
+---
+
+
+## Coordinate Reference Systems
+
+- CRS provide a standardized way of describing locations.
+- Many different CRS are used to describe geographic data.
+- The choice of CRS depends on:
+  - When the data was collected
+  - Geographic extent of the data
+  - Purpose of the data, etc.
+
+- When combining data with different CRS in R:
+  - Transform them to a common CRS so they align.
+  - Similar to ensuring consistent units for volume or distance measurements.
+
+---
+
+# CRS in R: Packages
+
+- **`sp`** and **`rgdal`** are used to assign and transform CRS in R:
+  
+
+- CRS notation in R uses **`proj4string`** from the PROJ.4 library:
+  ```
+  +init=epsg:4121 +proj=longlat +ellps=GRS80 
+  +datum=GGRS87 +no_defs +towgs84=-199.87,74.79,246.62
+  ```
+
+- Attributes of CRS include:
+  - **Projection**: `projInfo(type = "proj")`
+  - **Datum**: `projInfo(type = "datum")`
+  - **Ellipsoid**: `projInfo(type = "ellps")`
+
+---
+
+# Commonly Used EPSG Codes
+
+## Latitude/Longitude
+- **WGS84 (EPSG:4326)**
+  - Used globally (e.g., Google Earth).
+- **NAD83 (EPSG:4269)**
+  - Used by U.S. federal agencies.
+- **NAD27 (EPSG:4267)**
+  - Older version of NAD83.
+
+## Projected (Easting/Northing)
+
+- **UTM, Zone 10 (EPSG:32610)**
+  - Used in the Pacific Northwest.
+- **Mercator (EPSG:3857)**
+  - Used by Google Maps, Open Street Maps, Stamen Maps.
+
+---
+
+# Working with CRS in R
+
+## For `sp` Classes
+- Retrieve the CRS of a spatial object:
+
+```r
+proj4string(x)
+```
+
+- Assign a known CRS:
+  ```r
+  proj4string(x) <- CRS("+init=epsg:28992")
+  ```
+
+- Transform to another CRS:
+  ```r
+  newData <- spTransform(x, CRS("+init=epsg:4238"))
+  ```
+
+---
+
+# Working with CRS in R (Continued)
+
+## For Rasters
+- Retrieve or describe the CRS:
+  ```r
+  projection(x)
+  ```
+
+- Assign a CRS:
+  ```r
+  projection(x) <- CRS("+init=epsg:28992")
+  ```
+
+- Transform to another CRS:
+  ```r
+  newData <- projectRaster(x, proj4string(OtherData))
+  ```
+
+---
+
+# Finding CRS Data
+
+- Sources to determine CRS for your data:
+  - Metadata
+  - `.prj` file of shapefiles (automatically detected by `readOGR` in R).
+  - Data source (e.g., Google Earth uses `WGS84` long/lat).
+
+- **Note:** Identifying the correct CRS can be challenging!
+
+---

@@ -422,39 +422,11 @@
 <li>
 <span style="color: blue">Basic R Packages for Spatial Data Management and Modelling</span>
 <ul>
+<li>Installing basic packages<br>
+</li>
 <li>Data Management Packages</li>
 <li>Data Visualization and Mapping Packages</li>
 <li>Modelling Packages</li>
-</ul>
-</li>
-<li>
-<span style="color: blue">Overview of Spatial and Non-Spatial Data Exploration and Modelling</span>
-<ul>
-<li>Background: Spatial epidemiology, epidemiological data</li>
-<li>Data exploration/summarization techniques for spatial and non-spatial datasets</li>
-<li>Spatial versus non-spatial modelling approach</li>
-<li>Changing research questions into statistical thinking</li>
-</ul>
-</li>
-</ul></section><section class="slide level2"><h3 id="outlines-1">Outlines</h3>
-<ul>
-<li>
-<span style="color: blue">Spatial Exploratory Data Analysis</span>
-<ul>
-<li>Visualizing spatial data</li>
-<li>Disease mapping</li>
-<li>Spatial autocorrelation for areal data</li>
-<li>Variogram for geostatistical data</li>
-</ul>
-</li>
-<li>
-<span style="color: blue">Spatial Data Modelling</span>
-<ul>
-<li>Modelling framework</li>
-<li>Areal data modelling</li>
-<li>Geostatistical data modelling</li>
-<li>Spatial prediction (if time allows)</li>
-<li>Bayesian Disease mapping (if time allows)</li>
 </ul>
 </li>
 </ul></section><section><section id="source-format-and-types-of-spatial-data" class="title-slide slide level1 center"><h1><span style="color: blue"><strong>Source, Format, and Types of Spatial Data</strong></span></h1>
@@ -464,8 +436,8 @@
 <li>
 <p><strong>GIS (Geographical Information Systems):</strong></p>
 <ul>
-<li><p>A system designed to capture, store, manipulate, analyze, manage, and visualize spatial or geographic data.</p></li>
-<li><p>Integrates data from multiple sources to provide insights into spatial patterns and relationships.</p></li>
+<li>A system designed to capture, store, manipulate, analyze, manage, and visualize spatial or geographic data.</li>
+<li>Integrates data from multiple sources to provide insights into spatial patterns and relationships.</li>
 </ul>
 </li>
 <li><p><span style="color:red;">Spatial data, also known as geospatial data</span>, refers to information that identifies the geographic location and characteristics of natural or constructed features and boundaries on the Earth.</p></li>
@@ -878,13 +850,18 @@
 <li><p>Geospatial data relies on CRS to define locations on the Earth’s surface.</p></li>
 <li><p>A CRS <span style="color:#8A2BE2">contains both a datum and a projection</span>.</p></li>
 <li><p>Common CRS include <strong>WGS84 (GPS coordinates)</strong> and <strong>UTM (Universal Transverse Mercator)</strong>.</p></li>
-<li>
-<p>Frequently encountered datums:</p>
+</ul>
+<h3 id="commonly-used-epsg-codes">Commonly Used EPSG Codes</h3>
 <ul>
 <li>
-<span style="color:blue">WGS84</span> – World Geodetic System (created in) 1984. The origin is the center of the earth.</li>
+<span style="color:blue">WGS84</span>(EPSG:4326) – World Geodetic System (created in) 1984.
+<ul>
+<li>Used globally (e.g., Google Earth). The origin is the center of the earth.</li>
+</ul>
+</li>
 <li>
-<span style="color:blue">NAD27 &amp; NAD83</span> – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.</li>
+<span style="color:blue">NAD27</span> (EPSG:4267) &amp; <span style="color:blue">NAD83</span>(EPSG:4269) – North American Datum 1927 and 1983, respectively. The origin for NAD 27 is Meades Ranch in Kansas.
+<ul>
 <li>
 <span style="color:#8A2BE2">ED50</span> – European Datum 1950</li>
 </ul>
@@ -899,77 +876,150 @@
 <code>proj.4</code>; <code>EPSG</code>; Well-known Text (<code>WKT</code>).</li>
 </ul>
 </li>
-</ul></section></section><section><section id="basic-r-packages-for-spatial-data-management-and-modelling" class="title-slide slide level1 center"><h1><span style="color: blue">Basic R Packages for Spatial Data Management and Modelling</span></h1>
+</ul></section></section><section><section id="basic-r-packages-for-spatial-data-analysis" class="title-slide slide level1 center"><h1><strong>Basic R Packages for Spatial Data Analysis</strong></h1>
 
-</section><section id="rpackages-for-spatial-data" class="slide level2"><h2>Rpackages for spatial data</h2>
-<p>R offers several packages for geospatial data analysis</p>
+</section><section id="basic-r-packages-for-spatial-data-analysis-1" class="slide level2"><h2><strong>Basic R Packages for Spatial Data Analysis</strong></h2>
+<ol type="1">
+<li><strong><code>sf</code> and <code>stars</code></strong></li>
+</ol>
+<ul>
+<li><p>These packages provide robust frameworks for handling spatial data in R:</p></li>
+<li><p><span style="color: purple">sf (simple features)</span>: Designed for handling <span style="color: blue">vector data</span> like points, lines, and polygons.</p></li>
+<li><p><span style="color: purple">stars</span><span style="color: purble">:</span> Focused on handling <span style="color: blue">raster data</span> <em>(e.g., satellite images, grids)</em> and <em>spatio-temporal arrays</em>.</p></li>
+<li>
+<p>Both packages rely on external libraries for specific tasks:</p>
 <ul>
 <li>
-<strong><code>sf</code>:</strong> Modern and efficient handling of spatial data as simple features, fully integrates with <code>dplyr</code>.</li>
+<span style="color: green">GDAL/OGR:</span> Handles the input and output of spatial data.
+<ul>
+<li>Reads and writes spatial files like<span style="color: red">shapefiles (<code>.shp</code>)</span>, <span style="color: green">GeoTIFFs</span>, and others.</li>
+</ul>
+</li>
 <li>
-<strong><code>sp</code>:</strong> Older standard for spatial data in R, widely supported but less user-friendly compared to <code>sf</code>.</li>
+<span style="color: green">PROJ:</span> Manages <span style="color: blue"><strong>Coordinate Reference Systems (CRS)</strong></span>, ensuring spatial data aligns correctly on a map.
+<ul>
+<li>PROJ handles tasks like reprojecting data into different CRS.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section class="slide level2"><ol start="2" type="1">
 <li>
-<strong><code>rgdal</code>:</strong> It offers functions to read and write geospatial data in various formats.</li>
+<strong><code>spdep</code>:</strong> Spatial dependence and autocorrelation analysis.
+<ul>
+<li>Create spatial weights matrices.</li>
+<li>Test for spatial autocorrelation <span style="color: blue">(Moran’s I, Geary’s C)</span>.</li>
+<li>Perform spatial regression models.</li>
+</ul>
+</li>
 <li>
-<strong><code>raster</code>:</strong> Designed for raster data handling, but supports some vector operations.</li>
+<strong><code>spatstat</code>:</strong> Spatial point pattern analysis.
+<ul>
+<li>Analyze point patterns (e.g., clustering, regularity). Fit spatial point process models.</li>
+<li>Perform kernel density estimation and spatial simulations.</li>
+</ul>
+</li>
 <li>
-<strong><code>terra</code>:</strong> A modern replacement for <code>raster</code>, faster and more memory-efficient, with support for both data types.</li>
+<strong><code>gstat</code>:</strong> Geostatistical modeling and interpolation.
+<ul>
+<li>Variogram modeling, Ordinary and universal kriging, and Multivariate analysis via cokriging.</li>
+</ul>
+</li>
 <li>
-<strong><code>tmap</code>:</strong> Simplifies creating static and interactive thematic maps, works with <code>sf</code> and <code>sp</code> objects.</li>
+<strong><code>tmap</code>:</strong> Simplifies creating static and interactive thematic maps, works with <code>sf</code> objects.</li>
 <li>
-<strong><code>leaflet</code>:</strong> Interactive maps for web, fully supports spatial data visualization with popups and layers.</li>
+<strong><code>leaflet</code>:</strong> Interactive maps for web.</li>
 <li>
 <strong><code>mapview</code></strong> for interactive web mapping</li>
-<li>
-<strong><code>spatstat</code>:</strong> for point pattern analysis</li>
-</ul></section><section id="sf-package" class="slide level2"><h2>
+</ol></section><section id="install-required-packages" class="slide level2"><h2><strong>Install required Packages</strong></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Install required packages</span></span>
+<span id="cb1-2"><a href=""></a>pack <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"stars"</span>, <span class="st">"gstat"</span>, <span class="st">"spdep"</span>, <span class="st">"spatstat"</span>, <span class="st">"leaflet"</span>, </span>
+<span id="cb1-3"><a href=""></a>          <span class="st">"tmap"</span>, <span class="st">"mapview"</span>)</span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a><span class="fu">install.packages</span>(pack)</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="co"># Load all packages</span></span>
+<span id="cb1-8"><a href=""></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-9"><a href=""></a><span class="fu">library</span>(stars)</span>
+<span id="cb1-10"><a href=""></a><span class="fu">library</span>(gstat)</span>
+<span id="cb1-11"><a href=""></a><span class="fu">library</span>(spdep)</span>
+<span id="cb1-12"><a href=""></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb1-13"><a href=""></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-14"><a href=""></a><span class="fu">library</span>(tmap)</span>
+<span id="cb1-15"><a href=""></a><span class="fu">library</span>(mapview)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a></span>
+<span id="cb2-2"><a href=""></a><span class="co"># Or we can install all at once using</span></span>
+<span id="cb2-3"><a href=""></a><span class="fu">lapply</span>(pack, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="sf-package" class="slide level2"><h2>
 <code>sf()</code> package</h2>
 <ul>
 <li><p><strong>sf package</strong> (simple features = points, lines, polygons) is the new.</p></li>
 <li>
 <p>Therefore, we focus on the sf package for the following reasons:</p>
 <ul>
-<li>sf ensures fast reading and writing of data</li>
-<li>sf provides enhanced plotting performance</li>
-<li>sf objects can be treated as data frames in most operations</li>
-<li>Geographic data is stored in the special geometry column.</li>
-<li>sf functions can be combined using <code>%&gt;%</code> operator and works well with the tidyverse collection of R packages.</li>
-<li>sf function names are relatively consistent and intuitive (all begin with <code>st_</code>)</li>
+<li><span style="color: blue">sf ensures fast reading and writing of data</span></li>
+<li><span style="color: blue">sf provides enhanced plotting performance</span></li>
+<li><span style="color: blue">sf objects can be treated as data frames in most operations</span></li>
+<li><span style="color: blue">Geographic data is stored in the special geometry column.</span></li>
+<li><span style="color: blue">sf functions can be combined using <code>%&gt;%</code> operator and works well with the tidyverse collection of R packages.</span></li>
+<li><span style="color: blue">sf function names are relatively consistent and intuitive (all begin with <code>st_</code>)</span></li>
 </ul>
 </li>
 <li><p>The <strong>sf</strong> package is a modern alternative to the traditional <strong>sp</strong>, <strong>rgeos</strong>, and <strong>rgdal</strong> packages.</p></li>
 </ul></section><section id="st_-functions" class="slide level2"><h2><strong><code>st_*()</code> functions</strong></h2>
 <p>Common functions to manipulate <code>sf</code> objects include the following:</p>
 <ul>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>st_read()</code></a> reads a <code>sf</code> object,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_write.html"><code>st_write()</code></a> writes a <code>sf</code> object,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_crs.html"><code>st_crs()</code></a> gets or sets a new coordinate reference system (CRS),</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_transform.html"><code>st_transform()</code></a> transforms data to a new CRS,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html"><code>st_intersection()</code></a> intersects <code>sf</code> objects,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/geos_combine.html"><code>st_union()</code></a> combines several <code>sf</code> objects into one,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/geos_unary.html"><code>st_simplify()</code></a> simplifies a <code>sf</code> object,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html"><code>st_coordinates()</code></a> retrieves coordinates of a <code>sf</code> object,</p></li>
-<li><p><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html"><code>st_as_sf()</code></a> converts a foreign object to a <code>sf</code> object.</p></li>
-</ul></section><section id="read-and-understand-shapefiles-with-sf" class="slide level2"><h2>read and understand Shapefiles with <code>sf</code>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>st_read()</code></a> reads a <code>sf</code> object,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_write.html"><code>st_write()</code></a> writes a <code>sf</code> object,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_crs.html"><code>st_crs()</code></a> gets or sets a new coordinate reference system (CRS),</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_transform.html"><code>st_transform()</code></a> transforms data to a new CRS,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html"><code>st_intersection()</code></a> intersects <code>sf</code> objects,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/geos_combine.html"><code>st_union()</code></a> combines several <code>sf</code> objects into one,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/geos_unary.html"><code>st_simplify()</code></a> simplifies a <code>sf</code> object,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_coordinates.html"><code>st_coordinates()</code></a> retrieves coordinates of a <code>sf</code> object,</li>
+<li>
+<a href="https://r-spatial.github.io/sf/reference/st_as_sf.html"><code>st_as_sf()</code></a> converts a foreign object to a <code>sf</code> object.</li>
+</ul></section><section id="source-of-some-free-spatial-data" class="slide level2"><h2>Source of some free spatial data</h2>
+<ul>
+<li>
+<p>We can dounload some free online spatial data at</p>
+<ul>
+<li>Africa Geoportal: <a href="https://www.africageoportal.com/maps/5fbc3698295e4a97a015219849ed35ad/about">download</a>
+</li>
+<li>Ethiopia Healthsites <a href="https://data.humdata.org/dataset/ethiopia-healthsites">download at</a>
+</li>
+<li>Ethiopia FEWS NET Admin Boundaries <a href="https://fews.net/ethiopia-fews-net-admin-boundaries-2023">download at</a>:</li>
+</ul>
+</li>
+<li><p>We can read a shapefile or a <code>sf</code> object with the <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>st_read()</code></a> function of <strong>sf</strong>.</p></li>
+<li><p>For example, here we read the <code>ET_Admin3_2023.shp</code> which contains the region, zone and districts of Ethiopia.</p></li>
+</ul></section><section id="download-read-and-understand-shapefiles-with-sf" class="slide level2"><h2>download, read and understand Shapefiles with <code>sf</code>
 </h2>
 <ul>
-<li><p>We can read a shapefile or a <code>sf</code> object with the <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>st_read()</code></a> function of <strong>sf</strong>.</p></li>
-<li><p>For example, here we read the <code>ET_Admin3_2023.shp</code> at <a href="https://fews.net/ethiopia-fews-net-admin-boundaries-2023">Ethiopia</a> which contains the region, zone and districts of Ethiopia.</p></li>
+<li>Let us download data at <a href="https://fews.net/ethiopia-fews-net-admin-boundaries-2023">here</a>, Ethiopian administrative shapefile data and save from our Project folder with name Ethadmin3_2023.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href=""></a>ethA3_shape <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"Ethadmin3_2023/ET_Admin3_2023.shp"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(sf)</span>
+<span id="cb3-2"><a href=""></a>ethA3_shape <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"Ethadmin3_2023/ET_Admin3_2023.shp"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
 <li>select and rename variables using <code>dplyr</code> package.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-2"><a href=""></a>ethR_shape <span class="ot">&lt;-</span> ethA3_shape <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href=""></a>  <span class="fu">select</span>(FNID, ADMIN0, ADMIN1, ADMIN2, ADMIN3, Shape_Leng, </span>
-<span id="cb2-4"><a href=""></a>         Shape_Area, FNID_A1, geometry) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href=""></a>  <span class="fu">rename</span>(<span class="at">Country =</span> ADMIN0, <span class="at">Region =</span> ADMIN1, <span class="at">Zone =</span> ADMIN2, <span class="at">Woreda =</span> ADMIN3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href=""></a>ethR_shape <span class="ot">&lt;-</span> ethA3_shape <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href=""></a>  <span class="fu">select</span>(FNID, ADMIN0, ADMIN1, ADMIN2, ADMIN3, Shape_Leng, </span>
+<span id="cb4-4"><a href=""></a>         Shape_Area, FNID_A1, geometry) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href=""></a>  <span class="fu">rename</span>(<span class="at">Country =</span> ADMIN0, <span class="at">Region =</span> ADMIN1, <span class="at">Zone =</span> ADMIN2, <span class="at">Woreda =</span> ADMIN3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section><section class="slide level2"><h3 id="examine">Examine</h3>
@@ -977,8 +1027,8 @@
 <li>Below are a few common functions that use to examine our data. They are not from the sf package but they are very useful.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># View structure and summary</span></span>
-<span id="cb3-2"><a href=""></a><span class="fu">head</span>(ethR_shape, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># View structure and summary</span></span>
+<span id="cb5-2"><a href=""></a><span class="fu">head</span>(ethR_shape, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 3 features and 8 fields
 Geometry type: MULTIPOLYGON
@@ -1006,22 +1056,25 @@ Geodetic CRS:  WGS 84
 <li>
 <p>A <code>sf</code> object contains the following objects of class <code>sf</code>, <code>sfc</code> and <code>sfg</code>:</p>
 <ul>
-<li><p><code>sf</code> (simple feature): <em>each row</em> of the <code>data.frame</code> <span style="color:#ae01c7;">is a single simple feature consisting of attributes and geometry</span>.</p></li>
-<li><p><code>sfc</code> (simple feature geometry list-column): the <code>geometry</code> <em>column</em> of the <code>data.frame</code> <span style="color:blue;">is a list-column of class <code>sfc</code> with the geometry of each simple feature</span>.</p></li>
-<li><p><code>sfg</code> (simple feature geometry): <em>each of the rows</em> of the <code>sfc</code> list-column corresponds to the simple feature geometry (<code>sfg</code>) of a single simple feature.</p></li>
+<li>
+<code>sf</code> (simple feature): <em>each row</em> of the <code>data.frame</code> <span style="color:#ae01c7;">is a single simple feature consisting of attributes and geometry</span>.</li>
+<li>
+<code>sfc</code> (simple feature geometry list-column): the <code>geometry</code> <em>column</em> of the <code>data.frame</code> <span style="color:blue;">is a list-column of class <code>sfc</code> with the geometry of each simple feature</span>.</li>
+<li>
+<code>sfg</code> (simple feature geometry): <em>each of the rows</em> of the <code>sfc</code> list-column corresponds to the simple feature geometry (<code>sfg</code>) of a single simple feature.</li>
 </ul>
 </li>
 <li><p>The <strong>sf</strong> package stores geometric features in a data frame.</p></li>
 <li><p>Geographic data is stored in the special geometry column.</p></li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">str</span>(ethR_shape) <span class="co"># data structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">str</span>(ethR_shape) <span class="co"># data structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section><section class="slide level2"><h3 id="inspect-key-columns-and-summary">Inspect key columns and summary:</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Display column names </span></span>
-<span id="cb6-2"><a href=""></a><span class="fu">colnames</span>(ethR_shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># Display column names </span></span>
+<span id="cb8-2"><a href=""></a><span class="fu">colnames</span>(ethR_shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>[1] "FNID"       "Country"    "Region"     "Zone"       "Woreda"    
 [6] "Shape_Leng" "Shape_Area" "FNID_A1"    "geometry"  </code></pre>
@@ -1032,39 +1085,56 @@ Geodetic CRS:  WGS 84
 <li>Focus on specific regions, zones, or woredas:</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># Filter for a specific region (e.g., "Tigray")</span></span>
-<span id="cb8-2"><a href=""></a>tigray_data <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href=""></a>  <span class="fu">filter</span>(Region <span class="sc">==</span> <span class="st">"Tigray"</span>)</span>
-<span id="cb8-4"><a href=""></a><span class="co">#plot(tigray_data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Filter for a specific region (e.g., "Tigray")</span></span>
+<span id="cb10-2"><a href=""></a>tigray_data <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">filter</span>(Region <span class="sc">==</span> <span class="st">"Tigray"</span>)</span>
+<span id="cb10-4"><a href=""></a><span class="co">#plot(tigray_data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section><section class="slide level2"><div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Filter for a specific woreda (e.g., "Tahtay Adiyabo")</span></span>
-<span id="cb9-2"><a href=""></a>tahtay_adiyabo <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href=""></a>  <span class="fu">filter</span>(Woreda <span class="sc">==</span> <span class="st">"Tahtay Adiyabo"</span>)</span>
-<span id="cb9-4"><a href=""></a><span class="fu">plot</span>(tahtay_adiyabo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># Filter for a specific woreda (e.g., "Tahtay Adiyabo")</span></span>
+<span id="cb11-2"><a href=""></a>tahtay_adiyabo <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href=""></a>  <span class="fu">filter</span>(Woreda <span class="sc">==</span> <span class="st">"Tahtay Adiyabo"</span>)</span>
+<span id="cb11-4"><a href=""></a><span class="fu">plot</span>(tahtay_adiyabo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <img data-src="Spatial_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section><section class="slide level2"><ul>
 <li>If we are interested in mapping something in the 4 regions of country: Tigray, Afar, Amhara, Oromia. The <code>Region</code> column in the ethR_shape.shp contains the names of each region. We will use that as our subsetting column. Let’s call it region_4.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Subset dataset to include only Four-regions.</span></span>
-<span id="cb10-2"><a href=""></a>fourR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tigray"</span>, <span class="st">"Afar"</span>, <span class="st">"Amhara"</span>, <span class="st">"Oromia"</span>) </span>
-<span id="cb10-3"><a href=""></a>region_4 <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href=""></a>  <span class="fu">subset</span>(Region <span class="sc">%in%</span> fourR) </span>
-<span id="cb10-5"><a href=""></a></span>
-<span id="cb10-6"><a href=""></a><span class="fu">plot</span>(region_4<span class="sc">$</span>geometry, <span class="at">col =</span> <span class="fu">as.factor</span>(region_4<span class="sc">$</span>Region)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># Subset dataset to include only Four-regions.</span></span>
+<span id="cb12-2"><a href=""></a>fourR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tigray"</span>, <span class="st">"Afar"</span>, <span class="st">"Amhara"</span>, <span class="st">"Oromia"</span>) </span>
+<span id="cb12-3"><a href=""></a>region_4 <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">subset</span>(Region <span class="sc">%in%</span> fourR) </span>
+<span id="cb12-5"><a href=""></a></span>
+<span id="cb12-6"><a href=""></a><span class="fu">plot</span>(region_4<span class="sc">$</span>geometry, <span class="at">col =</span> <span class="fu">as.factor</span>(region_4<span class="sc">$</span>Region)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <img data-src="Spatial_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section><section class="slide level2"><h3 id="spatial-transformations">Spatial Transformations</h3>
-<h4 id="a.-transform-crs">a. <strong>Transform CRS</strong>
-</h4>
 <ul>
+<li><p>Reprojection is the transformation of geometry coordinates, from one CRS to another.</p></li>
+<li>
+<p>It is an important part of spatial analysis workflow, since we often need to:</p>
+<ul>
+<li>Transform several layers into the same projection, so that they can be displayed one on top of the other or so that they can be subject to a spatial operator</li>
+</ul>
+</li>
+</ul>
+<p>A vector layer can be reprojected with <code>st_transform</code>.</p>
+<ul>
+<li>The crs can be specified in one of four ways:
+<ul>
+<li>An EPSG code (e.g., 4326)</li>
+<li>A PROJ4 string (e.g., “+proj=longlat +datum=WGS84 +no_defs”)</li>
+<li>A WKT string</li>
+<li>A crs object of another layer, as returned by st_crs</li>
+</ul>
+</li>
+</ul></section><section class="slide level2"><ul>
 <li>Convert to a different coordinate reference system if needed:</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">st_crs</span>(ethR_shape)            <span class="co"># Check CRS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">st_crs</span>(ethR_shape)            <span class="co"># Check CRS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: WGS 84 
@@ -1086,8 +1156,8 @@ GEOGCRS["WGS 84",
 </div>
 </div>
 </section><section class="slide level2"><div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ethR_shape <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ethR_shape, <span class="at">crs =</span> <span class="dv">32637</span>)  <span class="co"># UTM Zone 37N</span></span>
-<span id="cb13-2"><a href=""></a>ethR_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>ethR_shape <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ethR_shape, <span class="at">crs =</span> <span class="dv">32637</span>)  <span class="co"># UTM Zone 37N</span></span>
+<span id="cb15-2"><a href=""></a>ethR_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 1141 features and 8 fields
 Geometry type: MULTIPOLYGON
@@ -1119,29 +1189,7 @@ First 10 features:
 10  1.5071146 0.056097753 ET2023A301 MULTIPOLYGON (((428420.1 15...</code></pre>
 </div>
 </div>
-<h4 id="b.-create-buffers">b. <strong>Create Buffers</strong>
-</h4>
-<ul>
-<li>Generate buffers around each feature</li>
-<li>buffers are areas created around spatial features at a specified distance.
-<ul>
-<li>eg. Measuring access to hospitals or clinics within a certain radius.</li>
-</ul>
-</li>
-</ul>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>buffered_shp <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(ethR_shape, <span class="at">dist =</span> <span class="dv">1000</span>)  <span class="co"># Buffer by 1km</span></span>
-<span id="cb15-2"><a href=""></a><span class="co">#plot(buffered_shp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section><section class="slide level2"><h3 id="simplify-geometries">Simplify Geometries</h3>
-<p>Simplify polygons to reduce complexity:</p>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>simplified_shp <span class="ot">&lt;-</span> <span class="fu">st_simplify</span>(ethR_shape, <span class="at">dTolerance =</span> <span class="fl">0.01</span>)</span>
-<span id="cb16-2"><a href=""></a><span class="fu">plot</span>(simplified_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section><section class="slide level2"><h3 id="visualize-the-data">Visualize the Data</h3>
+</section><section id="visualize-the-data" class="slide level2"><h2>Visualize the Data</h2>
 <ul>
 <li>If the changing of our data worked, we should be able to plot our data.. Let’s plot country.</li>
 </ul>
@@ -1149,14 +1197,16 @@ First 10 features:
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">plot</span>(ethR_shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><strong>So what happened?</strong></p>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><strong>So what happened?</strong></p>
 <ul>
-<li>Well, if you only use the plot() function, that particular shapefile will plot not only the shapefile geometry but also the geometry for every column in the dataset (except for the geometry column<br>
-</li>
+<li>Well, if you only use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function, that particular shapefile will plot not only the shapefile geometry but also the geometry for every column in the dataset <em>(except for the geometry column)</em>
+<ul>
 <li>which contains the spatial data</li>
 <li>the other columns are our tabular descriptive data).</li>
 </ul>
-<p>Above are 8 maps. How many columns were there? Check code below:</p>
+</li>
+</ul>
+<p>Above are 9 maps. How many columns were there? Check code below:</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">ncol</span>(ethR_shape)<span class="sc">-</span><span class="dv">1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
@@ -1175,28 +1225,172 @@ First 10 features:
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ethR_shape), <span class="at">col =</span> <span class="st">'lightblue'</span>, <span class="at">border =</span> <span class="st">'darkblue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p>Or use <code>ggplot2</code></p>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-13-1.png" width="1152" class="r-stretch"></section><section class="slide level2"><ul>
+<li>If we want just the non-geometric part (the <strong>attributes</strong>), it can be extracted with <code>st_drop_geometry</code> which returns a <code>data.frame</code>:</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>attrdata <span class="ot">&lt;-</span> <span class="fu">st_drop_geometry</span>(ethR_shape)</span>
+<span id="cb21-2"><a href=""></a><span class="fu">head</span>(attrdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>            FNID  Country Region             Zone         Woreda Shape_Leng
+1 ET2023A3010101 Ethiopia Tigray Northwest Tigray Tahtay Adiyabo  3.9265010
+2 ET2023A3010103 Ethiopia Tigray Northwest Tigray           Zana  1.1094484
+3 ET2023A3010104 Ethiopia Tigray Northwest Tigray  Tahtay Koraro  2.2751214
+4 ET2023A3010105 Ethiopia Tigray Northwest Tigray         Asgede  2.3274188
+5 ET2023A3010106 Ethiopia Tigray Northwest Tigray       Tselemti  2.1683607
+6 ET2023A3010107 Ethiopia Tigray Northwest Tigray   Sheraro town  0.4018419
+   Shape_Area    FNID_A1
+1 0.374269311 ET2023A301
+2 0.047746694 ET2023A301
+3 0.069621658 ET2023A301
+4 0.134341222 ET2023A301
+5 0.153435050 ET2023A301
+6 0.006060853 ET2023A301</code></pre>
+</div>
+</div>
+</section><section class="slide level2"><p>Or use <code>ggplot2</code></p>
 <div class="cell" data-layout-align="center">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb21-2"><a href=""></a></span>
-<span id="cb21-3"><a href=""></a><span class="fu">ggplot</span>(ethR_shape) <span class="sc">+</span></span>
-<span id="cb21-4"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Region)) <span class="sc">+</span></span>
-<span id="cb21-5"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-6"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Regions of Ethiopia"</span>, <span class="at">fill =</span> <span class="st">"Region"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-2"><a href=""></a><span class="fu">ggplot</span>(ethR_shape) <span class="sc">+</span></span>
+<span id="cb23-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Region)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Regions of Ethiopia"</span>, <span class="at">fill =</span> <span class="st">"Region"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section><section class="slide level2"><ul>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section><section class="slide level2"><ul>
 <li>We can delete some of the polygons by taking a subset of the rows of <code>map</code>.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>map <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href=""></a>  <span class="fu">st_filter</span>(ethR_shape[ethR_shape<span class="sc">$</span>Region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Tigray"</span>, <span class="st">"Oromia"</span>), ])</span>
-<span id="cb22-3"><a href=""></a></span>
-<span id="cb22-4"><a href=""></a><span class="fu">ggplot</span>(map) <span class="sc">+</span></span>
-<span id="cb22-5"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"gray"</span>)) <span class="sc">+</span></span>
-<span id="cb22-6"><a href=""></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>map <span class="ot">&lt;-</span> ethR_shape <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">st_filter</span>(ethR_shape[ethR_shape<span class="sc">$</span>Region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Tigray"</span>, <span class="st">"Oromia"</span>), ])</span>
+<span id="cb24-3"><a href=""></a></span>
+<span id="cb24-4"><a href=""></a><span class="fu">ggplot</span>(map) <span class="sc">+</span></span>
+<span id="cb24-5"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"gray"</span>)) <span class="sc">+</span></span>
+<span id="cb24-6"><a href=""></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section><section id="geometric-calculations" class="slide level2"><h2>Geometric calculations</h2>
+<p>Geometric operations on vector layers can conceptually be divided into three groups according to their output:</p>
+<ul>
+<li>
+<span style="color: blue">Numeric</span>values —Functions that summarize geometrical properties of:
+<ul>
+<li>A <em>single</em> layer—e.g., area, length</li>
+<li>A <em>pair</em> of layers—e.g., distance</li>
+</ul>
+</li>
+<li>
+<span style="color: blue">Logical</span>values —Functions that evaluate whether a certain condition holds true, regarding:
+<ul>
+<li>A <em>single</em> layer—e.g., geometry is valid</li>
+<li>A <em>pair</em> of layers—e.g., feature A intersects feature B</li>
+</ul>
+</li>
+<li>
+<span style="color: blue">Spatial</span> layers —Functions that create a new layer based on:
+<ul>
+<li><p>A <em>single</em> layer—e.g., centroid, buffer</p></li>
+<li><p>A <em>pair</em> of layers—e.g., intersection area</p></li>
+</ul>
+</li>
+</ul></section><section id="numeric" class="slide level2"><h2><span style="color: red">Numeric</span></h2>
+<p>There are several functions to calculate <em>numeric</em> geometric properties of vector layers in package <code>sf</code>:</p>
+<ul>
+<li>
+<code>st_length</code>—Length</li>
+<li>
+<code>st_area</code>—Area</li>
+<li>
+<code>st_distance</code>—Distance</li>
+<li>
+<code>st_bbox</code>—Bounding box</li>
+<li>
+<code>st_dimension</code>—Dimensions (0 = points, 1 = lines, 2 = polygons)</li>
+<li>For example, we can calculate the area of each feature in the <code>ethR_shape</code> layer using <code>st_area</code>.</li>
+</ul></section><section class="slide level2"><p>The result is assigned to a new attribute named <code>area</code> in <code>ethR_shape</code>:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>ethR_shape <span class="sc">$</span>area <span class="ot">=</span> <span class="fu">st_area</span>(ethR_shape )</span>
+<span id="cb25-2"><a href=""></a>ethR_shape<span class="sc">$</span>area <span class="ot">=</span> <span class="fu">st_area</span>(ethR_shape )</span>
+<span id="cb25-3"><a href=""></a><span class="fu">head</span>(ethR_shape, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 3 features and 9 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 339878 ymin: 1512792 xmax: 453079 ymax: 1646839
+Projected CRS: WGS 84 / UTM zone 37N
+            FNID  Country Region             Zone         Woreda Shape_Leng
+1 ET2023A3010101 Ethiopia Tigray Northwest Tigray Tahtay Adiyabo   3.926501
+2 ET2023A3010103 Ethiopia Tigray Northwest Tigray           Zana   1.109448
+3 ET2023A3010104 Ethiopia Tigray Northwest Tigray  Tahtay Koraro   2.275121
+  Shape_Area    FNID_A1                       geometry             area
+1 0.37426931 ET2023A301 MULTIPOLYGON (((340975.3 15... 2152127259 [m^2]
+2 0.04774669 ET2023A301 MULTIPOLYGON (((445673.4 15...  570617621 [m^2]
+3 0.06962166 ET2023A301 MULTIPOLYGON (((439235.7 15...  830999755 [m^2]</code></pre>
+</div>
+</div>
+</section><section class="slide level2"><ul>
+<li>The resulting area values, just like any other numeric calculations in sf, are returned as object of class units:</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">class</span>(ethR_shape<span class="sc">$</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "units"</code></pre>
+</div>
+</div>
+<ul>
+<li>A units object is basically a numeric vector associated with units of measurement. We can transform units measurements to different units, with function set_units from package units.</li>
+<li>First, we load the units library:</li>
+<li>Then, we make the transformation to <span class="math inline">\(km°2\)</span> units:</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">library</span>(units)</span>
+<span id="cb29-2"><a href=""></a>ethR_shape<span class="sc">$</span>area <span class="ot">=</span> <span class="fu">set_units</span>(ethR_shape<span class="sc">$</span>area, <span class="st">"km^2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section class="slide level2"><div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">plot</span>(ethR_shape[<span class="st">"area"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section><section id="spatial" class="slide level2"><h2><span style="color: red">Spatial</span></h2>
+<p><code>sf</code> provides common <em>geometry-generating</em> functions applicable to individual geometries, such as:</p>
+<ul>
+<li>
+<code>st_centroid</code>—Centroids</li>
+<li>
+<code>st_buffer</code>—Buffer</li>
+<li>
+<code>st_sample</code>—Random sample points</li>
+<li>
+<code>st_convex_hull</code>—Convex hull</li>
+<li>
+<code>st_voronoi</code>—Voronoi polygons</li>
+</ul>
+<p>For example, to calculate the centroids of the “wored” polygons we can use the <code>st_centroid</code> function as follows:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>ethR_shape <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(ethR_shape)</span>
+<span id="cb31-2"><a href=""></a>ethR_shape_ctr <span class="ot">=</span> <span class="fu">st_centroid</span>(ethR_shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section class="slide level2"><p>They can be plotted as follows</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ethR_shape), <span class="at">border =</span> <span class="st">"grey"</span>) </span>
+<span id="cb32-2"><a href=""></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ethR_shape_ctr), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<img data-src="Spatial_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section><section id="stars-rasters" class="slide level2"><h2>
+<a href="https://cran.r-project.org/package=stars"><strong><code>stars</code></strong></a><strong>: Rasters</strong>
+</h2>
+<p>Geometric operations on <em>rasters</em> can be done with package <code>stars</code>:</p>
+<ul>
+<li>
+<strong>Accessing cell values</strong>—As matrix / array, Extracting to points / lines / polygons</li>
+<li>
+<strong>Raster algebra</strong>—Arithmetic (<code>+</code>, <code>-</code>, …), Math (<code>sqrt</code>, <code>log10</code>, …), logical (<code>!</code>, <code>==</code>, <code>&gt;</code>, …), summary (<code>mean</code>, <code>max</code>, …), Masking</li>
+<li>
+<strong>Changing resolution and extent</strong>—Cropping, Mosaic, Resampling, Reprojection</li>
+<li>
+<strong>Transformations</strong>—Raster &lt;-&gt; Points / Contour lines / Polygons</li>
+</ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
